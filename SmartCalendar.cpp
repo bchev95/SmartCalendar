@@ -7,11 +7,13 @@ class Event
 {
 private:
     string title;
+    string description;
     int time[2];
 public:
     Event()
     {
         title = "blank";
+        description = "blank";
         time[0] = 0;
         time[1] = 0;
     }
@@ -22,6 +24,14 @@ public:
     void setTitle(string t)
     {
         title = t;
+    }
+    string getDescription()
+    {
+        return description;
+    }
+    void setDescription(string d)
+    {
+        description = d;
     }
     int getHour()
     {
