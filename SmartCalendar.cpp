@@ -2,81 +2,81 @@
 #include <string>
 #include "SmartCalendar.h"
 
-using namespace std;
 
-class Event
+Event::Event()
 {
-private:
-    string title;
-    string description;
-    int time[2];
-public:
-    Event()
-    {
-        title = "blank";
-        description = "blank";
-        time[0] = 0;
-        time[1] = 0;
-    }
-    string getTitle()
-    {
-        return title;
-    }
-    void setTitle(string t)
-    {
-        title = t;
-    }
-    string getDescription()
-    {
-        return description;
-    }
-    void setDescription(string d)
-    {
-        description = d;
-    }
-    int getHour()
-    {
-        return time[0];
-    }
-    int getMinute()
-    {
-        return time[1];
-    }
-    void setTime(int hour, int minute)
-    {
-        time[0] = hour;
-        time[1] = minute;
-    }
-    void printEvent()
-    {
-        if (time[0] < 10)
-        {
-            cout << "0" << time[0];
-        }
-        else
-        {
-            cout << time[0];
-        }
-        if (time[1] < 10)
-        {
-            cout << ":0" << time[1];
-        }
-        else
-        {
-          cout << ":" << time[1];
-        }
-        cout << "\t" << title << endl;
-    }
+    title = "blank";
+    description = "blank";
+    time[0] = 0;
+    time[1] = 0;
+}
 
-};
+string Event::getTitle()
+{
+    return title;
+}
 
-void printCalendar(Event event[], int x){
+void Event::setTitle(string t)
+{
+    title = t;
+}
+
+string Event::getDescription()
+{
+    return description;
+}
+
+void Event::setDescription(string d)
+{
+    description = d;
+}
+
+int Event::getHour()
+{
+    return time[0];
+}
+
+int Event::getMinute()
+{
+    return time[1];
+}
+
+void Event::setTime(int hour, int minute)
+{
+    time[0] = hour;
+    time[1] = minute;
+}
+
+void Event::printEvent()
+{
+    if (time[0] < 10)
+    {
+        cout << "0" << time[0];
+    }
+    else
+    {
+        cout << time[0];
+    }
+    if (time[1] < 10)
+    {
+        cout << ":0" << time[1];
+    }
+    else
+    {
+        cout << ":" << time[1];
+    }
+    cout << "\t" << title << endl;
+}
+
+void printCalendar(Event event[], int x)
+{
     for (int i = 0; i < x; i++)
     {
         event[i].printEvent();
     }
 
 }
+
 Event addEvent(Event dab)
 {
     int hour;
