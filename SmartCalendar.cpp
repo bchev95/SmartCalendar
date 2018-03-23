@@ -31,20 +31,76 @@ void Event::setDescription(string d)
     description = d;
 }
 
-int Event::getHour()
+string Event::getLocation()
 {
-    return time[0];
+    return location;
 }
 
-int Event::getMinute()
+void Event::setLocation(string l)
 {
-    return time[1];
+    location = l;
 }
 
-void Event::setTime(int hour, int minute)
+int Event::getStartHour()
 {
-    time[0] = hour;
-    time[1] = minute;
+    return startTime[0];
+}
+
+int Event::getStartMinute()
+{
+    return startTime[1];
+}
+
+void Event::setStartTime(int hour, int minute)
+{
+    startTime[0] = hour;
+    startTime[1] = minute;
+}
+
+int Event::getEndHour()
+{
+    return EndTime[0];
+}
+
+int Event::getEndMinute()
+{
+    return EndTime[1];
+}
+
+void Event::setEndTime(int hour, int minute)
+{
+    EndTime[0] = hour;
+    EndTime[1] = minute;
+}
+
+int Event::getMonth()
+{
+    return date[0];
+}
+
+int Event::getDay()
+{
+    return date[1];
+}
+
+int Event::getYear()
+{
+    return date[2];
+}
+
+void Event::setDate(int d[3])
+{
+    date = d;
+}
+
+int Event::getEventType()
+{
+    return eventType;
+}
+
+void Event::setEventType(int e)
+{
+    eventType = e;
 }
 
 void Event::printEvent()
@@ -66,6 +122,61 @@ void Event::printEvent()
         cout << ":" << time[1];
     }
     cout << "\t" << title << endl;
+}
+
+RepeatingEvent::RepeatingEvent()
+{
+    //Not sure what to put here
+}
+
+int RepeatingEvent::getDayOfWeek()
+{
+    return dayOfWeek;
+}
+
+void RepeatingEvent::setDayOfWeek(int dw)
+{
+    dayOfWeek = dw;
+}
+
+int RepeatingEvent::getStartMonth()
+{
+    return startDate[0];
+}
+
+int RepeatingEvent::getStartDay()
+{
+    return startDate[1];
+}
+
+int RepeatingEvent::getStartYear()
+{
+    return startDate[2];
+}
+
+void RepeatingEvent::setStartDate(int d[3])
+{
+    startDate = d;
+}
+
+int RepeatingEvent::getEndMonth()
+{
+    return EndDate[0];
+}
+
+int RepeatingEvent::getEndDay()
+{
+    return EndDate[1];
+}
+
+int RepeatingEvent::getEndYear()
+{
+    return EndDate[2];
+}
+
+void RepeatingEvent::setEndDate(int d[3])   //CLion kept trying to change input to *d is that correct?
+{
+    EndDate = d;
 }
 
 void printCalendar(Event event[], int x)
@@ -137,7 +248,7 @@ int main()
         }
         else //Catching user error.
         {
-            cout << "I apoligize, but my creator's incompetence restrict me from understanding what you have just inputted... Reprompting you now." << endl;
+            cout << "I apologize, but my creator's incompetence restrict me from understanding what you have just inputted... Reprompting you now." << endl;
         }
         cout << endl;
         if (eventCount == 10) //Stops the program once the calendar is filled.
