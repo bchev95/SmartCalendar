@@ -7,8 +7,15 @@ Event::Event()
 {
     title = "blank";
     description = "blank";
-    time[0] = 0;
-    time[1] = 0;
+    locaiton = "blank";
+    startTime[0] = 0;
+    startTime[1] = 0;
+    endTime[0] = 0;
+    endTime[1] = 0;
+    date[0] = 0;
+    date[1] = 0;
+    date[2] = 0;    //Should this be 2018?
+    eventType = 0;
 }
 
 string Event::getTitle()
@@ -126,7 +133,21 @@ void Event::printEvent()
 
 RepeatingEvent::RepeatingEvent()
 {
-    //Not sure what to put here
+    title = "blank";
+    description = "blank";
+    locaiton = "blank";
+    startTime[0] = 0;
+    startTime[1] = 0;
+    endTime[0] = 0;
+    endTime[1] = 0;
+    eventType = 0;
+    dayOfWeek = 0;
+    startDate[0] = 0;
+    startDate[1] = 0;
+    startDate[2] = 0;
+    endDate[0] = 0;
+    endDate[1] = 0;
+    endDate[2] = 0;
 }
 
 int RepeatingEvent::getDayOfWeek()
@@ -185,7 +206,6 @@ void printCalendar(Event event[], int x)
     {
         event[i].printEvent();
     }
-
 }
 
 Event addEvent(Event dab)
