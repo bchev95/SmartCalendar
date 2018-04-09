@@ -18,6 +18,7 @@ protected:
     int endTime[2];
     int date[3];
     int eventType;
+    Event * nextEvent;      // Add methods
 public:
     Event();
     string getTitle();
@@ -63,11 +64,20 @@ public:
 
 class Day
 {
+private:
+    Event * startOfDay;      // Head of linked list     // Add methods
+    int fifteenMins[96];
+    int dayOfWeek;
+    int date[3];
+public:
+    Day();
+    int getFifteenMins();
 
 };
 
 class Week
 {
+private:
 
 };
 
