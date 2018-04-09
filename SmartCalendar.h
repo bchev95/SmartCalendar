@@ -9,7 +9,8 @@
 
 using namespace std;
 
-class Event {
+class Event                 // Nodes of a linked list
+{
 protected:
     string title;
     string description;
@@ -45,9 +46,9 @@ public:
 class RepeatingEvent: public Event
 {
 private:
-    int dayOfWeek;
-    int startDate[3];   //The first occurrence of the event
-    int endDate[3];     //The last occurrence of the event
+    int dayOfWeek;      // Sunday = 1
+    int startDate[3];   // The first occurrence of the event
+    int endDate[3];     // The last occurrence of the event
 public:
     RepeatingEvent();
     int getDayOfWeek();
@@ -62,12 +63,12 @@ public:
     void setEndDate(int d[3]);
 };
 
-class Day
+class Day                   // Stores days as nodes of a linked list
 {
 private:
     Event * startOfDay;      // Head of linked list     // Add methods
     int fifteenMins[96];
-    int dayOfWeek;
+    int dayOfWeek;          // Sunday = 1
     int date[3];
 public:
     Day();
@@ -75,18 +76,11 @@ public:
 
 };
 
-class Week
-{
-private:
-
-};
-
-class Month
-{
-
-};
-
 class Year
 {
-
+private:
+    int days[365];
+    int startDate[3];   // The date of the first day of the year
+    int endDate[3];     // The date of the last day of the year
+    int startDayOfYear; // The day of the week that is the first day in the year
 };
