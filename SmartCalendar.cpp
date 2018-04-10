@@ -20,6 +20,22 @@ Event::Event()
     nextEvent = nullptr;
 }
 
+Event::Event(bool f){ //allows you to create a new event, specifying if it is free space or not
+    title = "blank";
+    description = "blank";
+    location = "blank";
+    startTime[0] = 0;
+    startTime[1] = 0;
+    endTime[0] = 0;
+    endTime[1] = 0;
+    date[0] = 0;
+    date[1] = 0;
+    date[2] = 0;
+    eventType = 0;
+    isFree = f;
+    nextEvent = nullptr;
+}
+
 string Event::getTitle()
 {
     return title;
@@ -214,22 +230,6 @@ void RepeatingEvent::setEndDate(int d[3])
     endDate[0] = d[0];
     endDate[1] = d[1];
     endDate[2] = d[2];
-}
-
-Event::Event(bool f){ //allows you to create a new event, specifying if it is free space or not
-    title = "blank";
-    description = "blank";
-    location = "blank";
-    startTime[0] = 0;
-    startTime[1] = 0;
-    endTime[0] = 0;
-    endTime[1] = 0;
-    date[0] = 0;
-    date[1] = 0;
-    date[2] = 0;
-    eventType = 0;
-    isFree = f;
-    nextEvent = nullptr;
 }
 
 Day::Day() = default;
