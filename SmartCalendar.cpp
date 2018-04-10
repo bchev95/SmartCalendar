@@ -16,6 +16,8 @@ Event::Event()
     date[1] = 0;
     date[2] = 0;    //Should this be 2018?
     eventType = 0;
+    isFree = false;
+    nextEvent = nullptr;
 }
 
 string Event::getTitle()
@@ -131,6 +133,14 @@ void Event::printEvent()
     cout << "\t" << title << endl;
 }
 
+bool Event::getIsFree() {
+    return isFree;
+}
+
+void Event::setIsFree(bool f) {
+    isFree = f;
+}
+
 RepeatingEvent::RepeatingEvent()
 {
     title = "blank";
@@ -200,6 +210,282 @@ void RepeatingEvent::setEndDate(int d[3])   //CLion kept trying to change input 
     EndDate = d;
 }
 
+Event::Event(bool f){ //allows you to create a new event, specifying if it is free space or not
+    title = "blank";
+    description = "blank";
+    locaiton = "blank";
+    startTime[0] = 0;
+    startTime[1] = 0;
+    endTime[0] = 0;
+    endTime[1] = 0;
+    date[0] = 0;
+    date[1] = 0;
+    date[2] = 0;    //Should this be 2018?
+    eventType = 0;
+    isFree = f;
+    nextEvent = nullptr;
+}
+
+
+Day::Day(int m, int d) {
+    date[0] = m;
+    date[1] = d;
+    startOfDay = Event(true);
+}
+
+bool Day::checkConflicts(int *start, int *end) { //returns true if there is a conflict
+    Event* current = startOfDay;
+    bool isConflict = false;
+    while (current != nullptr){
+        //this if checks to see if the current event occurs before the start of the potential event
+        if ((current->getEndHour() < start[0] || (current->getEndHour() == start[0] && current->getEndMinute() < start[1])))
+        {
+            current = current->nextEvent;
+        }
+        //this if checks if the current event occurs after the start of the potential event
+        else if ((current->getStartHour() > end[0] || (current->getStartHour() == end[0] && current->getStartMinute() > end[1])))
+        {
+            current = nullptr;
+        }
+        //if current does not occur entirely before or entirely after the potential event, there must be a conflict
+        else
+        {
+            isConflict = true;
+            current = nullptr;
+        }
+    }
+    return isConflict;
+}
+
+void Day::insertEvent(string t, string d, string l, int startHr, int startMin, int endHr, int endMin, int et, bool f) { //this assumes that there are no conflicts and inserts an event in the day
+    Event* current = startOfDay;
+    Event* prevCurrent = startOfDay;
+    Event newEvent;
+    newEvent.setTitle(t);
+    newEvent.setDescription(d);
+    newEvent.setStartTime(startHr, startMin);
+    newEvent.setEndTime(endHr, endMin);
+    newEvent.setEventType(et);
+    newEvent.setIsFree(f);
+
+    while (current != nullptr)
+    {
+        if (current->getIsFree())
+        {
+            //if the new event belongs in the middle of a block of free time
+            if ((current->getStartHour() > startHr || (current->getStartHour() == startHr && current->getStartMinute() < startMin)) && (current->getEndHour() > endHr ||(current->getEndHour() == endHr && current->getEndMinute() > endMin)))
+            {
+                Event* temp(true);
+                if (endMin != 59)
+                {
+                    temp->setStartTime(endHr, endMin+1);
+                    temp->setEndTime(current->getEndHour(), current->getEndMinute());
+                }
+                else
+                {
+                    temp->setStartTime(endHr+1, 0);
+                    temp->setEndTime(current->getEndHour(), current->getEndMinute());
+                }
+                temp->nextEvent = current->nextEvent;
+                newEvent.nextEvent = temp;
+                current->nextEvent = newEvent;
+
+                if (startMin == 0)
+                {
+                    current->setEndTime(startHr-1, 59);
+                }
+                else {
+                    current->setEndTime(startHr, startMin-1);
+                }
+
+            }
+            //if the new event perfectly lines up with the blcok of free space
+            else if (current->getStartHour() == startHr && current->getEndMinute() == startMin && current->getEndHour() == endHr && current->getEndMinute() == endMin)
+            {
+                current->setIsFree(false);
+                current->setTitle(t);
+                current->setDescription(d);
+                current->setLocation(l);
+                current->setEventType(et);
+            }
+            //if the new event lines up with the begining of the block of free space only
+            else if (current->getStartHour() == startHr && current->getStartMinute() == startMin){
+                prevCurrent->nextEvent = newEvent;
+                newEvent.nextEvent = current;
+                if (endMin == 59)
+                {
+                    current->setStartTime(startHr+1, 0);
+                }
+                else
+                {
+                    current->setStartTime(startHr, startMin+1);
+                }
+            }
+            //if the new event lines up with the end of the block of free space only
+            else if (current->getEndHour() == endHr && current->getEndMinute() == endMin){
+                newEvent.nextEvent = current->nextEvent;
+                current->nextEvent = newEvent;
+                if (startMin == 0)
+                {
+                    current->setEndTime(startHr-1, 59);
+                }
+                else
+                {
+                    current->setEndTime(startHr, startMin-1);
+                }
+            }
+        }
+        else
+        {
+            prevCurrent = current;
+            current = current->nextEvent;
+        }
+
+    }
+
+}
+
+Year::Year(int y) { //creates a year with the given number and creates the array of days in that year with their dates
+    year = y;
+    for (unsigned int i = 0; i < (unsigned)days.size(); i++){
+        int* date = indexToDate(i);
+        days[i] = Day(date[0], date[1]);
+    }
+}
+
+Calendar::Calendar() { //creates a new calendar and adds the year 2018 to it
+    years.push_back(Year(2018));
+}
+
+void Calendar::addYear(int y) { // adds a new year to the calendar
+    years.push_back(Year(y));
+}
+
+int* indexToDate(int i){ //takes the index of the day and converts it to the actual date
+    int date[2] = {0, 0};
+    int month = 1;
+    int day = 1;
+    for (int j = 0; j < i; j++)
+    {
+        if (j == 31){
+            month++;
+            day = 1;
+        }
+        else if (j == 59)
+        {
+            month++;
+            day = 1;
+        }
+        else if (j == 90)
+        {
+            month++;
+            day = 1;
+        }
+        else if (j == 120)
+        {
+            month++;
+            day = 1;
+
+        }
+        else if (j == 151)
+        {
+            month++;
+            day = 1;
+        }
+        else if (j == 181)
+        {
+            month++;
+            day = 1;
+        }
+        else if (j == 212)
+        {
+            month++;
+            day = 1;
+        }
+        else if (j == 243)
+        {
+            month++;
+            day = 1;
+        }
+        else if (j == 273)
+        {
+            month++;
+            day = 1;
+        }
+        else if (j == 304)
+        {
+            month++;
+            day = 1;
+        }
+        else if (j == 334)
+        {
+            month++;
+            day = 1;
+        }
+        else
+        {
+            day++;
+        }
+    }
+    date[0] = month;
+    date[1] = day;
+    return date;
+
+}
+
+int dateToIndex(int date[2]){ //takes the date of a day and converts it to the index
+    int index = 0;
+    if (date[0] == 1)
+    {
+        index = date[1] - 1;
+    }
+    else if (date[0] == 2)
+    {
+        index = date[1] + 30;
+    }
+    else if (date [0] == 3)
+    {
+        index =  date[0] + 58;
+    }
+    else if (date[0] == 4)
+    {
+        index = date[1] + 89;
+    }
+    else if (date[0] == 5)
+    {
+        index = date[1] + 119;
+    }
+    else if (date[0] == 6)
+    {
+        index =  date[1] + 150;
+    }
+    else if (date[0] == 7)
+    {
+        index = date[1] + 180;
+    }
+    else if (date[0] == 8)
+    {
+        index = date[1] + 211;
+    }
+    else if (date[0] == 9)
+    {
+        index = date[1] + 242;
+    }
+    else if (date[0] == 10)
+    {
+        index = date[1] + 272;
+    }
+    else if (date[0] == 11)
+    {
+        index = date[1] + 303;
+    }
+    else if (date[0] == 12){
+        index = date[1] + 333;
+    }
+    return index;
+}
+
+//this needs to be changed
 void printCalendar(Event event[], int x)
 {
     for (int i = 0; i < x; i++)
@@ -208,6 +494,7 @@ void printCalendar(Event event[], int x)
     }
 }
 
+//this neeeds to be changed
 Event addEvent(Event dab)
 {
     int hour;

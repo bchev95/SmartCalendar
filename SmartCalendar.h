@@ -19,9 +19,11 @@ protected:
     int endTime[2];
     int date[3];
     int eventType;
-    Event * nextEvent;      // Add methods
+    Event * nextEvent;
+    bool isFree;
 public:
     Event();
+    Event(bool f);
     string getTitle();
     void setTitle(string t);
     string getDescription();
@@ -41,6 +43,8 @@ public:
     int getEventType();
     void setEventType(int e);
     void printEvent();
+    bool getIsFree();
+    void setIsFree(bool f);
 };
 
 class RepeatingEvent: public Event
@@ -63,24 +67,38 @@ public:
     void setEndDate(int d[3]);
 };
 
-class Day                   // Stores days as nodes of a linked list
+class Day
 {
 private:
-    Event * startOfDay;      // Head of linked list     // Add methods
-    int fifteenMins[96];
-    int dayOfWeek;          // Sunday = 1
-    int date[3];
+    Event * startOfDay;      // Head of linked list
+    int dayOfWeek;
+    int date[2];
 public:
-    Day();
-    int getFifteenMins();
+    Day(int m, int d);
+    void insertEvent(string t, string d, string l, int startHr, int startMin, int endHr, int endMin, int et, bool f);
+    bool checkConflicts(int start[2], int end[2]);
 
 };
+
 
 class Year
 {
 private:
-    int days[365];
-    int startDate[3];   // The date of the first day of the year
-    int endDate[3];     // The date of the last day of the year
-    int startDayOfYear; // The day of the week that is the first day in the year
+    int year;
+    Day days[365];
+public:
+    Year(int y);
+    Day* getDays();
+};
+
+class Calendar
+{
+private:
+    vector<Year> years;
+public:
+    Calendar();
+    void addEvent(); //still needs to be implmented
+    Year* getYears();
+    void addYear(int y);
+
 };
