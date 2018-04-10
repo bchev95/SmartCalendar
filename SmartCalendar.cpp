@@ -99,7 +99,9 @@ int Event::getYear()
 
 void Event::setDate(int d[3])
 {
-    &date = *d;
+    date[0] = d[0];
+    date[1] = d[1];
+    date[2] = d[2];
 }
 
 int Event::getEventType()
