@@ -209,9 +209,11 @@ int RepeatingEvent::getEndYear()
     return endDate[2];
 }
 
-void RepeatingEvent::setEndDate(int d[3])   //CLion kept trying to change input to *d is that correct?
+void RepeatingEvent::setEndDate(int d[3])
 {
-    endDate = d;
+    endDate[0] = d[0];
+    endDate[1] = d[1];
+    endDate[2] = d[2];
 }
 
 Event::Event(bool f){ //allows you to create a new event, specifying if it is free space or not
