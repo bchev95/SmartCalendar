@@ -18,9 +18,11 @@ protected:
     int endTime[2];
     int date[3];
     int eventType;
-    Event * nextEvent;      // Add methods
+    Event * nextEvent;
+    bool isFree;
 public:
     Event();
+    Event(bool f);
     string getTitle();
     void setTitle(string t);
     string getDescription();
@@ -40,6 +42,8 @@ public:
     int getEventType();
     void setEventType(int e);
     void printEvent();
+    bool getIsFree();
+    void setIsFree(bool f);
 };
 
 class RepeatingEvent: public Event
@@ -65,28 +69,35 @@ public:
 class Day
 {
 private:
-    Event * startOfDay;      // Head of linked list     // Add methods
-    int fifteenMins[96];
+    Event * startOfDay;      // Head of linked list
     int dayOfWeek;
-    int date[3];
+    int date[2];
 public:
-    Day();
-    int getFifteenMins();
+    Day(int m, int d);
+    void insertEvent(); //still needs to be implemented
+    bool checkConflicts(int start[2], int end[2]);
 
 };
 
-class Week
-{
-private:
-
-};
-
-class Month
-{
-
-};
 
 class Year
 {
+private:
+    int year;
+    Day days[365];
+public:
+    Year(int y);
+    Day* getDays();
+};
+
+class Calendar
+{
+private:
+    vector<Year> years;
+public:
+    Calendar();
+    void addEvent(); //still needs to be implmented
+    Year* getYears();
+    void addYear(int y);
 
 };
