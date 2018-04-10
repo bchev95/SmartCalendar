@@ -120,15 +120,15 @@ void Event::printEvent()
     }
     else
     {
-        std::cout << time[0];
+        std::cout << startTime[0];
     }
-    if (time[1] < 10)
+    if (startTime[1] < 10)
     {
-        std::cout << ":0" << time[1];
+        std::cout << ":0" << startTime[1];
     }
     else
     {
-        std::cout << ":" << time[1];
+        std::cout << ":" << startTime[1];
     }
     std::cout << "\t" << title << std::endl;
 }
