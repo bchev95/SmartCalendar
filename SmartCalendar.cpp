@@ -68,18 +68,18 @@ void Event::setStartTime(int hour, int minute)
 
 int Event::getEndHour()
 {
-    return EndTime[0];
+    return endTime[0];
 }
 
 int Event::getEndMinute()
 {
-    return EndTime[1];
+    return endTime[1];
 }
 
 void Event::setEndTime(int hour, int minute)
 {
-    EndTime[0] = hour;
-    EndTime[1] = minute;
+    endTime[0] = hour;
+    endTime[1] = minute;
 }
 
 int Event::getMonth()
@@ -99,7 +99,7 @@ int Event::getYear()
 
 void Event::setDate(int d[3])
 {
-    date = d;
+    date = *d;
 }
 
 int Event::getEventType()
