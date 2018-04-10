@@ -7,7 +7,7 @@ Event::Event()
 {
     title = "blank";
     description = "blank";
-    locaiton = "blank";
+    location = "blank";
     startTime[0] = 0;
     startTime[1] = 0;
     endTime[0] = 0;
