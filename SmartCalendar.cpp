@@ -257,6 +257,94 @@ bool Day::checkConflicts(int *start, int *end) { //returns true if there is a co
     return isConflict;
 }
 
+void Day::insertEvent(string t, string d, string l, int startHr, int startMin, int endHr, int endMin, int et, bool f) { //this assumes that there are no conflicts and inserts an event in the day
+    Event* current = startOfDay;
+    Event* prevCurrent = startOfDay;
+    Event newEvent;
+    newEvent.setTitle(t);
+    newEvent.setDescription(d);
+    newEvent.setStartTime(startHr, startMin);
+    newEvent.setEndTime(endHr, endMin);
+    newEvent.setEventType(et);
+    newEvent.setIsFree(f);
+
+    while (current != nullptr)
+    {
+        if (current->getIsFree())
+        {
+            //if the new event belongs in the middle of a block of free time
+            if ((current->getStartHour() > startHr || (current->getStartHour() == startHr && current->getStartMinute() < startMin)) && (current->getEndHour() > endHr ||(current->getEndHour() == endHr && current->getEndMinute() > endMin)))
+            {
+                Event* temp(true);
+                if (endMin != 59)
+                {
+                    temp->setStartTime(endHr, endMin+1);
+                    temp->setEndTime(current->getEndHour(), current->getEndMinute());
+                }
+                else
+                {
+                    temp->setStartTime(endHr+1, 0);
+                    temp->setEndTime(current->getEndHour(), current->getEndMinute());
+                }
+                temp->nextEvent = current->nextEvent;
+                newEvent.nextEvent = temp;
+                current->nextEvent = newEvent;
+
+                if (startMin == 0)
+                {
+                    current->setEndTime(startHr-1, 59);
+                }
+                else {
+                    current->setEndTime(startHr, startMin-1);
+                }
+
+            }
+            //if the new event perfectly lines up with the blcok of free space
+            else if (current->getStartHour() == startHr && current->getEndMinute() == startMin && current->getEndHour() == endHr && current->getEndMinute() == endMin)
+            {
+                current->setIsFree(false);
+                current->setTitle(t);
+                current->setDescription(d);
+                current->setLocation(l);
+                current->setEventType(et);
+            }
+            //if the new event lines up with the begining of the block of free space only
+            else if (current->getStartHour() == startHr && current->getStartMinute() == startMin){
+                prevCurrent->nextEvent = newEvent;
+                newEvent.nextEvent = current;
+                if (endMin == 59)
+                {
+                    current->setStartTime(startHr+1, 0);
+                }
+                else
+                {
+                    current->setStartTime(startHr, startMin+1);
+                }
+            }
+            //if the new event lines up with the end of the block of free space only
+            else if (current->getEndHour() == endHr && current->getEndMinute() == endMin){
+                newEvent.nextEvent = current->nextEvent;
+                current->nextEvent = newEvent;
+                if (startMin == 0)
+                {
+                    current->setEndTime(startHr-1, 59);
+                }
+                else
+                {
+                    current->setEndTime(startHr, startMin-1);
+                }
+            }
+        }
+        else
+        {
+            prevCurrent = current;
+            current = current->nextEvent;
+        }
+
+    }
+
+}
+
 Year::Year(int y) { //creates a year with the given number and creates the array of days in that year with their dates
     year = y;
     for (unsigned int i = 0; i < (unsigned)days.size(); i++){
@@ -406,7 +494,7 @@ void printCalendar(Event event[], int x)
     }
 }
 
-//thsi neeeds to be changed
+//this neeeds to be changed
 Event addEvent(Event dab)
 {
     int hour;
