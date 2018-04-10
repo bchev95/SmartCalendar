@@ -189,7 +189,9 @@ int RepeatingEvent::getStartYear()
 
 void RepeatingEvent::setStartDate(int d[3])
 {
-    startDate = d;
+    startDate[0] = d[0];
+    startDate[1] = d[1];
+    startDate[2] = d[2];
 }
 
 int RepeatingEvent::getEndMonth()
