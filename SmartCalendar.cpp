@@ -114,9 +114,9 @@ void Event::setEventType(int e)
 
 void Event::printEvent()
 {
-    if (time[0] < 10)
+    if (startTime[0] < 10)
     {
-        std::cout << "0" << time[0];
+        std::cout << "0" << startTime[0];
     }
     else
     {
@@ -220,7 +220,7 @@ Event::Event(bool f){ //allows you to create a new event, specifying if it is fr
     endTime[1] = 0;
     date[0] = 0;
     date[1] = 0;
-    date[2] = 0;    //Should this be 2018?
+    date[2] = 0;
     eventType = 0;
     isFree = f;
     nextEvent = nullptr;
