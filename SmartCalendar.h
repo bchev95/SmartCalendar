@@ -7,6 +7,8 @@
 
 #endif //SMARTCALENDAR_SMARTCALENDAR_H
 
+#include <vector>
+
 using namespace std;
 
 class Event                 // Nodes of a linked list
@@ -74,6 +76,7 @@ private:
     int dayOfWeek;
     int date[2];
 public:
+    Day();
     Day(int m, int d);
     void insertEvent(string t, string d, string l, int startHr, int startMin, int endHr, int endMin, int et, bool f);
     bool checkConflicts(int start[2], int end[2]);
@@ -94,10 +97,10 @@ public:
 class Calendar
 {
 private:
-    vector<Year> years;
+    std::vector<Year> years;
 public:
     Calendar();
-    void addEvent(); //still needs to be implmented
+    void addEvent(); //still needs to be implemented
     Year* getYears();
     void addYear(int y);
 

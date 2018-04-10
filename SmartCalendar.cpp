@@ -116,21 +116,21 @@ void Event::printEvent()
 {
     if (time[0] < 10)
     {
-        cout << "0" << time[0];
+        std::cout << "0" << time[0];
     }
     else
     {
-        cout << time[0];
+        std::cout << time[0];
     }
     if (time[1] < 10)
     {
-        cout << ":0" << time[1];
+        std::cout << ":0" << time[1];
     }
     else
     {
-        cout << ":" << time[1];
+        std::cout << ":" << time[1];
     }
-    cout << "\t" << title << endl;
+    std::cout << "\t" << title << std::endl;
 }
 
 bool Event::getIsFree() {
@@ -145,7 +145,7 @@ RepeatingEvent::RepeatingEvent()
 {
     title = "blank";
     description = "blank";
-    locaiton = "blank";
+    location = "blank";
     startTime[0] = 0;
     startTime[1] = 0;
     endTime[0] = 0;
@@ -192,28 +192,28 @@ void RepeatingEvent::setStartDate(int d[3])
 
 int RepeatingEvent::getEndMonth()
 {
-    return EndDate[0];
+    return endDate[0];
 }
 
 int RepeatingEvent::getEndDay()
 {
-    return EndDate[1];
+    return endDate[1];
 }
 
 int RepeatingEvent::getEndYear()
 {
-    return EndDate[2];
+    return endDate[2];
 }
 
 void RepeatingEvent::setEndDate(int d[3])   //CLion kept trying to change input to *d is that correct?
 {
-    EndDate = d;
+    endDate = d;
 }
 
 Event::Event(bool f){ //allows you to create a new event, specifying if it is free space or not
     title = "blank";
     description = "blank";
-    locaiton = "blank";
+    location = "blank";
     startTime[0] = 0;
     startTime[1] = 0;
     endTime[0] = 0;
@@ -226,6 +226,7 @@ Event::Event(bool f){ //allows you to create a new event, specifying if it is fr
     nextEvent = nullptr;
 }
 
+Day::Day() = default;
 
 Day::Day(int m, int d) {
     date[0] = m;
