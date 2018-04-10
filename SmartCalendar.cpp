@@ -501,24 +501,6 @@ void printCalendar(Event event[], int x)
     }
 }
 
-//this neeeds to be changed
-Event addEvent(Event dab)
-{
-    int hour;
-    int minute;
-    string title;
-    cout << "What would you like me to call this event?";
-    cin >> title;
-    dab.setTitle(title);
-    cout << "What hour of the day does " << dab.getTitle() << " begin?";
-    cin >> hour;
-    cout << "What minute of the day does " << dab.getTitle() << " begin?";
-    cin >> minute;
-    cout << "Thank you. I am now adding this event into your SmartCalendar™" << endl;
-    dab.setTime(hour, minute);
-    return dab;
-}
-
 string printMenu()
 {
     string response;
@@ -531,47 +513,5 @@ string printMenu()
 
 int main()
 {
-    cout << "---------------------------------------------------" << endl;
-    cout << "Hello, I am HAL 2018, your personal SmartCalendar™." << endl;
-    cout << "---------------------------------------------------" << endl;
-
-    bool keepGoing = true; //Whether to keep running the loop.
-    string userChoice; //To determine which calendar function to use.
-    int numberOfEvents = 10; //Max number of events.
-    Event events[numberOfEvents]; //Creating the events.
-    int eventCount = 0; //For keeping track of how many events are in the calendar.
-
-    do
-    {
-        cout << "Please enter the a number 1-3 to select how I can assist you:" << endl;
-        userChoice = printMenu();
-        if (!userChoice.compare("1")) //Add event.
-        {
-            events[eventCount] = addEvent(events[eventCount]);
-            eventCount++;
-        }
-        else if (!userChoice.compare("2")) //Print calendar.
-        {
-            printCalendar(events, numberOfEvents);
-        }
-        else if (!userChoice.compare("3")) //Exit program.
-        {
-            keepGoing = false;
-            cout << "I guess it is time for us to part ways..." << endl;
-            cout << "Until next time." << endl;
-        }
-        else //Catching user error.
-        {
-            cout << "I apologize, but my creator's incompetence restrict me from understanding what you have just inputted... Reprompting you now." << endl;
-        }
-        cout << endl;
-        if (eventCount == 10) //Stops the program once the calendar is filled.
-        {
-            cout << "Your calendar is full. Since I am not finished, I do not have the ability to keep going. I will print your calendar as my parting gift." << endl;
-            cout << "Farewell." << endl << endl;
-            printCalendar(events, numberOfEvents);
-        }
-    } while (keepGoing);
-
     return 0;
 }
