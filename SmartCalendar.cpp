@@ -275,7 +275,7 @@ bool Day::checkConflicts(int *start, int *end) { //returns true if there is a co
 void Day::insertEvent(string t, string d, string l, int startHr, int startMin, int endHr, int endMin, int et, bool f) { //this assumes that there are no conflicts and inserts an event in the day
     Event* current = startOfDay;
     Event* prevCurrent = startOfDay;
-    Event newEvent;
+    Event* newEvent;
     newEvent.setTitle(t);
     newEvent.setDescription(d);
     newEvent.setStartTime(startHr, startMin);
@@ -301,9 +301,9 @@ void Day::insertEvent(string t, string d, string l, int startHr, int startMin, i
                     temp->setStartTime(endHr+1, 0);
                     temp->setEndTime(current->getEndHour(), current->getEndMinute());
                 }
-                temp->nextEvent = current->nextEvent;
-                newEvent.nextEvent = temp;
-                current->nextEvent = newEvent;
+                temp->getNextEvent() = current->getNextEvent();
+                newEvent->getNextEvent() = temp;
+                current->getNextEvent = newEvent;
 
                 if (startMin == 0)
                 {
@@ -325,8 +325,8 @@ void Day::insertEvent(string t, string d, string l, int startHr, int startMin, i
             }
             //if the new event lines up with the begining of the block of free space only
             else if (current->getStartHour() == startHr && current->getStartMinute() == startMin){
-                prevCurrent->nextEvent = newEvent;
-                newEvent.nextEvent = current;
+                prevCurrent->getNextEvent() = newEvent;
+                newEvent->getNextEvent() = current;
                 if (endMin == 59)
                 {
                     current->setStartTime(startHr+1, 0);
@@ -338,8 +338,8 @@ void Day::insertEvent(string t, string d, string l, int startHr, int startMin, i
             }
             //if the new event lines up with the end of the block of free space only
             else if (current->getEndHour() == endHr && current->getEndMinute() == endMin){
-                newEvent.nextEvent = current->nextEvent;
-                current->nextEvent = newEvent;
+                newEvent->getNextEvent() = current->getNextEvent();
+                current->getNextEvent() = newEvent;
                 if (startMin == 0)
                 {
                     current->setEndTime(startHr-1, 59);
@@ -353,7 +353,7 @@ void Day::insertEvent(string t, string d, string l, int startHr, int startMin, i
         else
         {
             prevCurrent = current;
-            current = current->nextEvent;
+            current = current->getNextEvent();
         }
 
     }
