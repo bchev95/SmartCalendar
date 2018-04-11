@@ -237,7 +237,7 @@ Day::Day() = default;
 Day::Day(int m, int d) {
     date[0] = m;
     date[1] = d;
-    startOfDay = new Event*(true);
+    startOfDay = new Event(true);
 }
 
 bool Day::checkConflicts(int *start, int *end) { //returns true if there is a conflict
