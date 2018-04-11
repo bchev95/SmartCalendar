@@ -339,7 +339,7 @@ void Day::insertEvent(string t, string d, string l, int startHr, int startMin, i
             //if the new event lines up with the end of the block of free space only
             else if (current->getEndHour() == endHr && current->getEndMinute() == endMin){
                 newEvent->setNextEvent(current->getNextEvent());
-                current->getNextEvent(newEvent);
+                current->setNextEvent(newEvent);
                 if (startMin == 0)
                 {
                     current->setEndTime(startHr-1, 59);
