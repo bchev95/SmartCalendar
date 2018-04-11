@@ -290,7 +290,7 @@ void Day::insertEvent(string t, string d, string l, int startHr, int startMin, i
             //if the new event belongs in the middle of a block of free time
             if ((current->getStartHour() > startHr || (current->getStartHour() == startHr && current->getStartMinute() < startMin)) && (current->getEndHour() > endHr ||(current->getEndHour() == endHr && current->getEndMinute() > endMin)))
             {
-                Event* temp(true);
+                Event* temp = new Event(true);
                 if (endMin != 59)
                 {
                     temp->setStartTime(endHr, endMin+1);
