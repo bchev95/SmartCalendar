@@ -159,6 +159,14 @@ void Event::setIsFree(bool f) {
     isFree = f;
 }
 
+void Event::setNextEvent(Event * e){
+    nextEvent = e;
+}
+
+Event * Event::getEvent(){
+    return nextEvent;
+}
+
 RepeatingEvent::RepeatingEvent()
 {
     title = "blank";
@@ -247,7 +255,7 @@ bool Day::checkConflicts(int *start, int *end) { //returns true if there is a co
         //this if checks to see if the current event occurs before the start of the potential event
         if ((current->getEndHour() < start[0] || (current->getEndHour() == start[0] && current->getEndMinute() < start[1])))
         {
-            current = current->nextEvent;
+            current = current->getNextEvent();
         }
         //this if checks if the current event occurs after the start of the potential event
         else if ((current->getStartHour() > end[0] || (current->getStartHour() == end[0] && current->getStartMinute() > end[1])))

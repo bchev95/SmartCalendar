@@ -47,6 +47,8 @@ public:
     void printEvent();
     bool getIsFree();
     void setIsFree(bool f);
+    void setNextEvent(Event * e);
+    Event * getEvent();
 };
 
 class RepeatingEvent: public Event
