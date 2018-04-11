@@ -92,7 +92,7 @@ private:
 public:
     Year(int y);
     Day* getDays();
-    int* Year::indexToDate(int i); //takes the index of the day and converts it to the actual date
+    int* indexToDate(int i); //takes the index of the day and converts it to the actual date
 };
 
 class Calendar
