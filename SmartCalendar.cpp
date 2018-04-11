@@ -163,7 +163,7 @@ void Event::setNextEvent(Event * e){
     nextEvent = e;
 }
 
-Event * Event::getEvent(){
+Event * Event::getNextEvent(){
     return nextEvent;
 }
 
