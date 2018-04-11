@@ -276,12 +276,12 @@ void Day::insertEvent(string t, string d, string l, int startHr, int startMin, i
     Event* current = startOfDay;
     Event* prevCurrent = startOfDay;
     Event* newEvent;
-    newEvent.setTitle(t);
-    newEvent.setDescription(d);
-    newEvent.setStartTime(startHr, startMin);
-    newEvent.setEndTime(endHr, endMin);
-    newEvent.setEventType(et);
-    newEvent.setIsFree(f);
+    newEvent->setTitle(t);
+    newEvent->setDescription(d);
+    newEvent->setStartTime(startHr, startMin);
+    newEvent->setEndTime(endHr, endMin);
+    newEvent->setEventType(et);
+    newEvent->setIsFree(f);
 
     while (current != nullptr)
     {
@@ -301,9 +301,9 @@ void Day::insertEvent(string t, string d, string l, int startHr, int startMin, i
                     temp->setStartTime(endHr+1, 0);
                     temp->setEndTime(current->getEndHour(), current->getEndMinute());
                 }
-                temp->getNextEvent() = current->getNextEvent();
-                newEvent->getNextEvent() = temp;
-                current->getNextEvent = newEvent;
+                temp->setNextEvent(current->getNextEvent());
+                newEvent->setNextEvent(temp);
+                current->setNextEvent(newEvent);
 
                 if (startMin == 0)
                 {
@@ -325,8 +325,8 @@ void Day::insertEvent(string t, string d, string l, int startHr, int startMin, i
             }
             //if the new event lines up with the begining of the block of free space only
             else if (current->getStartHour() == startHr && current->getStartMinute() == startMin){
-                prevCurrent->getNextEvent() = newEvent;
-                newEvent->getNextEvent() = current;
+                prevCurrent->setNextEvent(newEvent);
+                newEvent->setNextEvent(current);
                 if (endMin == 59)
                 {
                     current->setStartTime(startHr+1, 0);
@@ -338,8 +338,8 @@ void Day::insertEvent(string t, string d, string l, int startHr, int startMin, i
             }
             //if the new event lines up with the end of the block of free space only
             else if (current->getEndHour() == endHr && current->getEndMinute() == endMin){
-                newEvent->getNextEvent() = current->getNextEvent();
-                current->getNextEvent() = newEvent;
+                newEvent->setNextEvent(current->getNextEvent());
+                current->getNextEvent(newEvent);
                 if (startMin == 0)
                 {
                     current->setEndTime(startHr-1, 59);
