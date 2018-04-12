@@ -167,79 +167,6 @@ Event * Event::getNextEvent(){
     return nextEvent;
 }
 
-RepeatingEvent::RepeatingEvent()
-{
-    title = "blank";
-    description = "blank";
-    location = "blank";
-    startTime[0] = 0;
-    startTime[1] = 0;
-    endTime[0] = 0;
-    endTime[1] = 0;
-    eventType = 0;
-    dayOfWeek = 0;
-    startDate[0] = 0;
-    startDate[1] = 0;
-    startDate[2] = 0;
-    endDate[0] = 0;
-    endDate[1] = 0;
-    endDate[2] = 0;
-}
-
-int RepeatingEvent::getDayOfWeek()
-{
-    return dayOfWeek;
-}
-
-void RepeatingEvent::setDayOfWeek(int dw)
-{
-    dayOfWeek = dw;
-}
-
-int RepeatingEvent::getStartMonth()
-{
-    return startDate[0];
-}
-
-int RepeatingEvent::getStartDay()
-{
-    return startDate[1];
-}
-
-int RepeatingEvent::getStartYear()
-{
-    return startDate[2];
-}
-
-void RepeatingEvent::setStartDate(int d[3])
-{
-    startDate[0] = d[0];
-    startDate[1] = d[1];
-    startDate[2] = d[2];
-}
-
-int RepeatingEvent::getEndMonth()
-{
-    return endDate[0];
-}
-
-int RepeatingEvent::getEndDay()
-{
-    return endDate[1];
-}
-
-int RepeatingEvent::getEndYear()
-{
-    return endDate[2];
-}
-
-void RepeatingEvent::setEndDate(int d[3])
-{
-    endDate[0] = d[0];
-    endDate[1] = d[1];
-    endDate[2] = d[2];
-}
-
 Day::Day() = default;
 
 Day::Day(int m, int d) {
@@ -576,7 +503,7 @@ void Calendar::addRepeatingEvent(){
             return;
         }
     }
-    
+
     // Get the start and end times of the event
     std::cout << "What hour (military time) will your event start at?\n";
     int theStartHour;
@@ -593,8 +520,24 @@ void Calendar::addRepeatingEvent(){
 
 
     // Check that there are no conflicts on any date at that time
+    
 
     // Get information from user
+    std::cout << "What is the name of this event?\n";
+    std::string eventName;
+    std::cin >> eventName;
+    std::cout << "Where will " << eventName << " take place?\n";
+    std::string eventLocation;
+    std::cin >> eventLocation;
+    std::cout << "What is the description of " << eventName << "?\n";
+    std::string eventDescription;
+    std::cin >> eventDescription;
+    std::cout << "What is the event type of " << eventName << "?\n";
+    int eventType;
+    std::cin >> eventType;
+
+    // Insert the event into the applicable days
+
 }
 
 std::vector<Year> Calendar::getYears(){

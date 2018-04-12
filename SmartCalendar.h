@@ -51,26 +51,6 @@ public:
     Event * getNextEvent();
 };
 
-class RepeatingEvent: public Event
-{
-private:
-    int dayOfWeek;      // Sunday = 1
-    int startDate[3];   // The first occurrence of the event
-    int endDate[3];     // The last occurrence of the event
-public:
-    RepeatingEvent();
-    int getDayOfWeek();
-    void setDayOfWeek(int dw);
-    int getStartMonth();
-    int getStartDay();
-    int getStartYear();
-    void setStartDate(int d[3]);
-    int getEndMonth();
-    int getEndDay();
-    int getEndYear();
-    void setEndDate(int d[3]);
-};
-
 class Day
 {
 private:
