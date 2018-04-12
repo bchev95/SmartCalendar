@@ -793,7 +793,7 @@ void Calendar::deleteEvent()
   }
 }
 
-/*********************the following needs to be changed****************/
+/******************************************the following needs to be changed******************************************/
 void printCalendar(Event event[], int x)
 {
     for (int i = 0; i < x; i++)
