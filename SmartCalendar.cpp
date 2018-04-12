@@ -376,7 +376,7 @@ void Calendar::addYear(int y) { // adds a new year to the calendar
     years.push_back(Year(y));
 }
 
-int[] Year::indexToDate(int i){ //takes the index of the day and converts it to the actual date
+int* Year::indexToDate(int i){ //takes the index of the day and converts it to the actual date
     int date[2] = {0, 0};
     int month = 1;
     int day = 1;
