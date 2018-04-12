@@ -275,7 +275,7 @@ bool Day::checkConflicts(int *start, int *end) { //returns true if there is a co
 void Day::insertEvent(string t, string d, string l, int startHr, int startMin, int endHr, int endMin, int et, bool f) { //this assumes that there are no conflicts and inserts an event in the day
     Event* current = startOfDay;
     Event* prevCurrent = startOfDay;
-    Event* newEvent;
+    Event* newEvent = new Event();
     newEvent->setTitle(t);
     newEvent->setDescription(d);
     newEvent->setStartTime(startHr, startMin);
