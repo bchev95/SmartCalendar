@@ -464,7 +464,7 @@ int Calendar::findYear(int y){
 }
 
 void Calendar::addEvent(){
-    // Get input from user
+    // Get year from user
     std::cout << "What year will your event occur in?\n";
     int yearNum;
     std::cin >> yearNum;
@@ -532,9 +532,68 @@ void Calendar::addEvent(){
 }
 
 void Calendar::addRepeatingEvent(){
-    // Get input from user:
+    // Get year from user:
+    std::cout << "What year will your event occur in?\n";
+    int yearNum;
+    std::cin >> yearNum;
+
     // Check that the year has been created
+    int yearIndex = findYear(yearNum);
+    if(yearIndex == -1)
+    {
+        if(!(addYear(yearNum))){
+            std::cout << "Invalid year\n";
+            return;
+        }
+    }
+
+    // Get the start and end days of the event from the user
+    std::cout << "What month (number) " << yearNum << " will your event start occurring?\n";
+    int theStartMonth;
+    std::cin >> theStartMonth;
+    std::cout << "What day of the month will your event start occurring?\n";
+    int theStartDay;
+    std::cin >> theStartDay;
+    std::cout << "What month (number) " << yearNum << " will your event stop occurring?\n";
+    int theEndMonth;
+    std::cin >> theEndMonth;
+    std::cout << "What day of the month will your event stop occurring?\n";
+    int theEndDay;
+    std::cin >> theEndDay;
+
+    // Get the days of the week that the event will occur on
+    int eventDays[7] = {};
+    for (int i = 0; i < 7; i++)
+    {
+        int j = i + 1;
+        std::cout << "What is the " << j <<"st/nd/rd/th day of the week the day will occur on?"
+                << "(Enter 0 if all the days have already been entered)\n";
+        std::cin >> eventDays[i];
+
+        // Check to make sure there is at least one day of the week that the event occurs on
+        if(eventDays[1] == 0){
+            std::cout << "Invalid entry\n";
+            return;
+        }
+    }
+    
+    // Get the start and end times of the event
+    std::cout << "What hour (military time) will your event start at?\n";
+    int theStartHour;
+    std::cin >> theStartHour;
+    std::cout << "What minute of the " << theStartHour << " hour will your event start?\n";
+    int theStartMinute;
+    std::cin >> theStartMinute;
+    std::cout << "What hour (military time) will your event end at?\n";
+    int theEndHour;
+    std::cin >> theEndHour;
+    std::cout << "What minute of the " << theEndHour << " hour will your event start?\n";
+    int theEndMinute;
+    std::cin >> theEndMinute;
+
+
     // Check that there are no conflicts on any date at that time
+
     // Get information from user
 }
 
