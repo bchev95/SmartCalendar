@@ -95,6 +95,7 @@ public:
     Year(int y);
     Day* getDays();
     int* indexToDate(int i); //takes the index of the day and converts it to the actual date
+    int getYear();
 };
 
 class Calendar

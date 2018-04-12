@@ -369,6 +369,10 @@ Year::Year(int y) { //creates a year with the given number and creates the array
     }
 }
 
+int Year::getYear() {
+    return year;
+}
+
 int* Year::indexToDate(int i){ //takes the index of the day and converts it to the actual date
     int date[2] = {0, 0};
     int month = 1;
@@ -447,7 +451,7 @@ Year Calendar::findYear(int y){
     int j = years.size();
     for(int i = 0; i < j; i++)
     {
-        if(years[i] == y)
+        if(years[i].getYear() == y)
         {
             return years[i];
         }
