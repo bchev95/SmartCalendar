@@ -498,8 +498,10 @@ void Calendar::addEvent(){
 
     // Check that there are no conflicts on that date at that time
     Year theYear = years[yearIndex];
-    Day * theDay = theYear[dateIndex];
-    theDay->checkConflicts({theStartHour, theStartMinute}, {theEndHour, theEndMinute});
+    Day * theDay = theYear.getDays(dateIndex);
+    int startTime[2] = {theStartHour, theStartMinute};
+    int endTime[2] = {theEndHour, theEndMinute};
+    theDay->checkConflicts(startTime, endTime);
     // Get information from user
 }
 
