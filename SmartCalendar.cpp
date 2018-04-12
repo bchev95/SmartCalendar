@@ -509,6 +509,7 @@ void Calendar::addEvent(){
         std::cout << "There is a conflict with this time";
         return;
     }
+
     // Get information from user
     std::cout << "What is the name of this event?\n";
     std::string eventName;
@@ -523,6 +524,7 @@ void Calendar::addEvent(){
     int eventType;
     std::cin >> eventType;
 
+    // Insert the event into the day
     theDay->insertEvent(eventName, eventDescription, eventLocation, theStartHour, theStartMinute, theEndHour, theEndMinute, eventType, false);
 }
 
