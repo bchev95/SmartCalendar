@@ -543,7 +543,7 @@ std::vector<Year> Calendar::getYears(){
 }
 
 bool Calendar::addYear(int y) { // adds a new year to the calendar & returns false if the year does not follow the succession
-    if((years.back() + 1) == y) {
+    if(((years.back()) + 1) == y) {
         years.push_back(Year(y));
         return true;
     }
