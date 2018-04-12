@@ -362,7 +362,7 @@ void Day::insertEvent(string t, string d, string l, int startHr, int startMin, i
 
 Year::Year(int y) { //creates a year with the given number and creates the array of days in that year with their dates
     year = y;
-    for (unsigned int i = 0; i < (unsigned)days.size(); i++){
+    for (unsigned int i = 0; i < 365; i++){
         int* date = Year::indexToDate(i);
         days[i] = Day(date[0], date[1]);
     }

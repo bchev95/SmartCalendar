@@ -90,7 +90,7 @@ class Year
 {
 private:
     int year;
-    Day days[365];
+    Day* days[365];
 public:
     Year(int y);
     Day* getDays();
