@@ -477,8 +477,8 @@ void Calendar::addEvent(){
     int theMonth;
     std::cin >> theMonth;
     std::cout << "What day of the month will your event occur on?\n";
-    int theDay;
-    std::cin >> theDay;
+    int theDayNum;
+    std::cin >> theDayNum;
     std::cout << "What hour (military time) will your event start at?\n";
     int theStartHour;
     std::cin >> theStartHour;
@@ -493,9 +493,13 @@ void Calendar::addEvent(){
     std::cin >> theEndMinute;
 
     // Get index of date
-    int date[2] = {theMonth, theDay};
-    dateToIndex(date);
+    int date[2] = {theMonth, theDayNum};
+    int dateIndex = dateToIndex(date);
+
     // Check that there are no conflicts on that date at that time
+    Year theYear = years[yearIndex];
+    Day * theDay = theYear[dateIndex];
+    theDay->checkConflicts({theStartHour, theStartMinute}, {theEndHour, theEndMinute});
     // Get information from user
 }
 
