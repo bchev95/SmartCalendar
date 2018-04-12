@@ -362,18 +362,11 @@ void Day::insertEvent(string t, string d, string l, int startHr, int startMin, i
 
 Year::Year(int y) { //creates a year with the given number and creates the array of days in that year with their dates
     year = y;
-    for (unsigned int i = 0; i < 365; i++){
-        int* date = Year::indexToDate(i);
+    for (unsigned int i = 0; i < 365; i++)
+    {
+        int* date = indexToDate(i);
         days[i] = new Day(date[0], date[1]);
     }
-}
-
-Calendar::Calendar() { //creates a new calendar and adds the year 2018 to it
-    years.push_back(Year(2018));
-}
-
-void Calendar::addYear(int y) { // adds a new year to the calendar
-    years.push_back(Year(y));
 }
 
 int* Year::indexToDate(int i){ //takes the index of the day and converts it to the actual date
@@ -448,7 +441,15 @@ int* Year::indexToDate(int i){ //takes the index of the day and converts it to t
 
 }
 
-int dateToIndex(int date[2]){ //takes the date of a day and converts it to the index
+Calendar::Calendar() { //creates a new calendar and adds the year 2018 to it
+    years.push_back(Year(2018));
+}
+
+void Calendar::addYear(int y) { // adds a new year to the calendar
+    years.push_back(Year(y));
+}
+
+int Calendar::dateToIndex(int date[2]){ //takes the date of a day and converts it to the index
     int index = 0;
     if (date[0] == 1)
     {

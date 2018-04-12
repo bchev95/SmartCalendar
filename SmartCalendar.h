@@ -106,5 +106,5 @@ public:
     void addEvent(); //still needs to be implemented
     Year* getYears();
     void addYear(int y);
-
+    int dateToIndex(int date[2]);
 };
