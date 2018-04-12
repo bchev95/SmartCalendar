@@ -447,16 +447,16 @@ int* Year::indexToDate(int i){ //takes the index of the day and converts it to t
 
 Calendar::Calendar() = default;
 
-Year Calendar::findYear(int y){
+int Calendar::findYear(int y){
     int j = years.size();
     for(int i = 0; i < j; i++)
     {
         if(years[i].getYear() == y)
         {
-            return years[i];
+            return i;
         }
     }
-    return nullptr;
+    return (-1);
 }
 
 void Calendar::addEvent(){
@@ -466,8 +466,8 @@ void Calendar::addEvent(){
     std::cin >> yearNum;
 
     // Check that the year has been created
-    Year theYear = findYear(yearNum);
-    if(theYear == nullptr)
+    int yearIndex = findYear(yearNum);
+    if(yearIndex == -1)
     {
         addYear(yearNum);
     }
@@ -506,7 +506,9 @@ void Calendar::addRepeatingEvent(){
     // Get information from user
 }
 
-Year* Calendar::getYears(){}
+vector<Year> Calendar::getYears(){
+    return years;
+}
 
 void Calendar::addYear(int y) { // adds a new year to the calendar
     years.push_back(Year(y));

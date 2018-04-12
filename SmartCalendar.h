@@ -104,10 +104,10 @@ private:
     std::vector<Year> years;
 public:
     Calendar();
-    Year findYear(int y);
+    int findYear(int y);
     void addEvent();
     void addRepeatingEvent();
-    Year* getYears();
+    vector<Year> getYears();
     void addYear(int y);
     int dateToIndex(int date[2]);
 };
