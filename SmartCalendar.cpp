@@ -364,7 +364,7 @@ Year::Year(int y) { //creates a year with the given number and creates the array
     year = y;
     for (unsigned int i = 0; i < 365; i++){
         int* date = Year::indexToDate(i);
-        days[i] = Day(date[0], date[1]);
+        days[i] = new Day(date[0], date[1]);
     }
 }
 
