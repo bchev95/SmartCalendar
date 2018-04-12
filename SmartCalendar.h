@@ -94,6 +94,7 @@ private:
 public:
     Year(int y);
     Day* getDays();
+    Day * getADay(int index);
     int* indexToDate(int i); //takes the index of the day and converts it to the actual date
     int getYear();
 };

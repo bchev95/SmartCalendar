@@ -369,6 +369,10 @@ Year::Year(int y) { //creates a year with the given number and creates the array
     }
 }
 
+Day * Year::getADay(int index){
+    return days[index];
+}
+
 int Year::getYear() {
     return year;
 }
@@ -498,7 +502,7 @@ void Calendar::addEvent(){
 
     // Check that there are no conflicts on that date at that time
     Year theYear = years[yearIndex];
-    Day * theDay = theYear.getDays(dateIndex);
+    Day * theDay = theYear.getADay(dateIndex);
     int startTime[2] = {theStartHour, theStartMinute};
     int endTime[2] = {theEndHour, theEndMinute};
     theDay->checkConflicts(startTime, endTime);
