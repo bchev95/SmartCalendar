@@ -95,9 +95,7 @@ int Event::getEndMinute()
 void Event::setEndTime(int hour, int minute)
 {
     endTime[0] = hour;
-    endTime[1] = minute;startOfDay = current->getNextEvent();
-    delete current;
-    startOfDay->setStartTime(12, 0);
+    endTime[1] = minute;
 }
 
 int Event::getMonth()
@@ -115,9 +113,7 @@ int Event::getYear()
     return date[2];
 }
 
-void Event::setDate(int d[3])startOfDay = current->getNextEvent();
-    delete current;
-    startOfDay->setStartTime(12, 0);
+void Event::setDate(int d[3])
 {
     date[0] = d[0];
     date[1] = d[1];
@@ -298,7 +294,7 @@ bool Day::findEvent(std::string eName){ //checks to see if an event with the giv
   Event* current = startOfDay;
   while (current != nullptr){
       //checks to see if current event name is the given event name
-      if ((current->getTitle() == eName)
+      if (current->getTitle() == eName)
       {
           return true;
       }
@@ -306,9 +302,10 @@ bool Day::findEvent(std::string eName){ //checks to see if an event with the giv
       {
         return false;
       }
+    }
+    return false;
 }
 
-//needs to be implemented
 void Day::removeEvent(std::string eName) //removes the event from the day
 {
   Event* current = startOfDay;
