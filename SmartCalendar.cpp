@@ -703,6 +703,51 @@ int Calendar::dateToIndex(int date[2]){ //takes the date of a day and converts i
     return index;
 }
 
+void Calendar::deleteEvent()
+{
+  // Get year from user
+  std::cout << "What year will your event occur in?\n";
+  int yearNum;
+  std::cin >> yearNum;
+
+  // Check that the year has been created
+  int yearIndex = findYear(yearNum);
+  if(yearIndex == -1)
+  {
+        std::cout << "Invalid year\n";
+        return;
+
+  }
+
+  // Get date and time from user
+  std::cout << "What month (number) " << yearNum << " does your event occur in?\n";
+  int theMonth;
+  std::cin >> theMonth;
+  std::cout << "What day of the month does your event occur on?\n";
+  int theDayNum;
+  std::cin >> theDayNum;
+
+  // Get index & object of date
+  int date[2] = {theMonth, theDayNum};
+  int dateIndex = dateToIndex(date);
+  Year theYear = years[yearIndex];
+  Day * theDay = theYear.getADay(dateIndex);
+
+  // Deleting the event
+  std::cout << "What is the name of the event that you will be deleting?\n";
+  std::string eventName;
+  std::cin >> eventName;
+  if(theDay->findEvent(eventName))
+  {
+    theDay->removeEvent(eventName);
+  }
+  else
+  {
+    std::cout << "Invalid event\n";
+    return;
+  }
+}
+
 //this needs to be changed
 void printCalendar(Event event[], int x)
 {
