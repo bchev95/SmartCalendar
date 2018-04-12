@@ -36,32 +36,32 @@ Event::Event(bool f){ //allows you to create a new event, specifying if it is fr
     nextEvent = nullptr;
 }
 
-string Event::getTitle()
+std::string Event::getTitle()
 {
     return title;
 }
 
-void Event::setTitle(string t)
+void Event::setTitle(std::string t)
 {
     title = t;
 }
 
-string Event::getDescription()
+std::string Event::getDescription()
 {
     return description;
 }
 
-void Event::setDescription(string d)
+void Event::setDescription(std::string d)
 {
     description = d;
 }
 
-string Event::getLocation()
+std::string Event::getLocation()
 {
     return location;
 }
 
-void Event::setLocation(string l)
+void Event::setLocation(std::string l)
 {
     location = l;
 }
@@ -272,7 +272,7 @@ bool Day::checkConflicts(int *start, int *end) { //returns true if there is a co
     return isConflict;
 }
 
-void Day::insertEvent(string t, string d, string l, int startHr, int startMin, int endHr, int endMin, int et, bool f) { //this assumes that there are no conflicts and inserts an event in the day
+void Day::insertEvent(std::string t, std::string d, std::string l, int startHr, int startMin, int endHr, int endMin, int et, bool f) { //this assumes that there are no conflicts and inserts an event in the day
     Event* current = startOfDay;
     Event* prevCurrent = startOfDay;
     Event* newEvent = new Event();
@@ -505,8 +505,25 @@ void Calendar::addEvent(){
     Day * theDay = theYear.getADay(dateIndex);
     int startTime[2] = {theStartHour, theStartMinute};
     int endTime[2] = {theEndHour, theEndMinute};
-    theDay->checkConflicts(startTime, endTime);
+    if(theDay->checkConflicts(startTime, endTime)) {
+        std::cout << "There is a conflict with this time";
+        return;
+    }
     // Get information from user
+    std::cout << "What is the name of this event?\n";
+    std::string eventName;
+    std::cin >> eventName;
+    std::cout << "Where will " << eventName << " take place?\n";
+    std::string eventLocation;
+    std::cin >> eventLocation;
+    std::cout << "What is the description of " << eventName << "?\n";
+    std::string eventDescription;
+    std::cin >> eventDescription;
+    std::cout << "What is the event type of " << eventName << "?\n";
+    int eventType;
+    std::cin >> eventType;
+
+    theDay->insertEvent(eventName, eventDescription, theStartHour, theStartMinute, theEndHour, theEndMinute, eventType, false);
 }
 
 void Calendar::addRepeatingEvent(){
@@ -516,7 +533,7 @@ void Calendar::addRepeatingEvent(){
     // Get information from user
 }
 
-vector<Year> Calendar::getYears(){
+std::vector<Year> Calendar::getYears(){
     return years;
 }
 
@@ -585,9 +602,9 @@ void printCalendar(Event event[], int x)
     }
 }
 
-string printMenu()
+std::string printMenu()
 {
-    string response;
+    std::string response;
     cout << "1. Add an event." << endl;
     cout << "2. Print out calendar." << endl;
     cout << "3. Leave me alone." << endl;

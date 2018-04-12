@@ -14,9 +14,9 @@ using namespace std;
 class Event                 // Nodes of a linked list
 {
 protected:
-    string title;
-    string description;
-    string location;
+    std::string title;
+    std::string description;
+    std::string location;
     int startTime[2];
     int endTime[2];
     int date[3];
@@ -26,12 +26,12 @@ protected:
 public:
     Event();
     Event(bool f);
-    string getTitle();
-    void setTitle(string t);
-    string getDescription();
-    void setDescription(string d);
-    string getLocation();
-    void setLocation(string l);
+    std::string getTitle();
+    void setTitle(std::string t);
+    std::string getDescription();
+    void setDescription(std::string d);
+    std::string getLocation();
+    void setLocation(std::string l);
     int getStartHour();
     int getStartMinute();
     void setStartTime(int hour, int minute);
@@ -80,7 +80,7 @@ private:
 public:
     Day();
     Day(int m, int d);
-    void insertEvent(string t, string d, string l, int startHr, int startMin, int endHr, int endMin, int et, bool f);
+    void insertEvent(std::string t, std::string d, std::string l, int startHr, int startMin, int endHr, int endMin, int et, bool f);
     bool checkConflicts(int start[2], int end[2]);
 
 };
@@ -108,7 +108,7 @@ public:
     int findYear(int y);
     void addEvent();
     void addRepeatingEvent();
-    vector<Year> getYears();
+    std::vector<Year> getYears();
     void addYear(int y);
     int dateToIndex(int date[2]);
 };
