@@ -109,6 +109,6 @@ public:
     void addEvent();
     void addRepeatingEvent();
     std::vector<Year> getYears();
-    void addYear(int y);
+    bool addYear(int y);
     int dateToIndex(int date[2]);
 };
