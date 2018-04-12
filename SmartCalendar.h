@@ -103,7 +103,9 @@ private:
     std::vector<Year> years;
 public:
     Calendar();
-    void addEvent(); //still needs to be implemented
+    Year findYear(int y);
+    void addEvent();
+    void addRepeatingEvent();
     Year* getYears();
     void addYear(int y);
     int dateToIndex(int date[2]);

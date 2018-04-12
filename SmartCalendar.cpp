@@ -441,9 +441,68 @@ int* Year::indexToDate(int i){ //takes the index of the day and converts it to t
 
 }
 
-Calendar::Calendar() { //creates a new calendar and adds the year 2018 to it
-    years.push_back(Year(2018));
+Calendar::Calendar() = default;
+
+Year Calendar::findYear(int y){
+    int j = years.size();
+    for(int i = 0; i < j; i++)
+    {
+        if(years[i] == y)
+        {
+            return years[i];
+        }
+    }
+    return null;
 }
+
+void Calendar::addEvent(){
+    // Get input from user
+    std::cout << "What year will your event occur in?\n";
+    int yearNum;
+    std::cin >> yearNum;
+
+    // Check that the year has been created
+    Year theYear = findYear(yearNum);
+    if(theYear == null)
+    {
+        addYear(yearNum);
+    }
+
+    // Get date and time from user
+    std::cout << "What month (number) " << yearNum << " will your event occur in?\n";
+    int theMonth;
+    std::cin >> theMonth;
+    std::cout << "What day of the month will your event occur on?\n";
+    int theDay;
+    std::cin >> theDay;
+    std::cout << "What hour (military time) will your event start at?\n";
+    int theStartHour;
+    std::cin >> theStartHour;
+    std::cout << "What minute of the " << theStartHour << " hour will your event start?\n";
+    int theStartMinute;
+    std::cin >> theStartMinute;
+    std::cout << "What hour (military time) will your event end at?\n";
+    int theEndHour;
+    std::cin >> theEndHour;
+    std::cout << "What minute of the " << theEndHour << " hour will your event start?\n";
+    int theEndMinute;
+    std::cin >> theEndMinute;
+
+    // Get index of date
+    int date[2] = {theMonth, theDay};
+    dateToIndex(date);
+    // Check that there are no conflicts on that date at that time
+    // Get information from user
+}
+
+void Calendar::addRepeatingEvent(){
+    // Get input from user:
+    // Check that the year has been created
+    // Check that there are no conflicts on any date at that time
+    // Get information from user
+}
+
+Year* Calendar::getYears(){}
 
 void Calendar::addYear(int y) { // adds a new year to the calendar
     years.push_back(Year(y));
@@ -522,5 +581,6 @@ string printMenu()
 
 int main()
 {
+    // When starting the cale
     return 0;
 }
