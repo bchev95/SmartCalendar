@@ -95,7 +95,9 @@ int Event::getEndMinute()
 void Event::setEndTime(int hour, int minute)
 {
     endTime[0] = hour;
-    endTime[1] = minute;
+    endTime[1] = minute;startOfDay = current->getNextEvent();
+    delete current;
+    startOfDay->setStartTime(12, 0);
 }
 
 int Event::getMonth()
@@ -113,7 +115,9 @@ int Event::getYear()
     return date[2];
 }
 
-void Event::setDate(int d[3])
+void Event::setDate(int d[3])startOfDay = current->getNextEvent();
+    delete current;
+    startOfDay->setStartTime(12, 0);
 {
     date[0] = d[0];
     date[1] = d[1];
@@ -173,6 +177,8 @@ Day::Day(int m, int d) {
     date[0] = m;
     date[1] = d;
     startOfDay = new Event(true);
+    startOfDay->setStartTime(12, 0);
+    startOfDay->setEndTime(23, 59);
 }
 
 bool Day::checkConflicts(int *start, int *end) { //returns true if there is a conflict
@@ -285,6 +291,101 @@ void Day::insertEvent(std::string t, std::string d, std::string l, int startHr, 
 
     }
 
+}
+
+
+bool Day::findEvent(std::string eName){ //checks to see if an event with the given name exists, returns true if it does exist
+  Event* current = startOfDay;
+  while (current != nullptr){
+      //checks to see if current event name is the given event name
+      if ((current->getTitle() == eName)
+      {
+          return true;
+      }
+      else
+      {
+        return false;
+      }
+}
+
+//needs to be implemented
+void Day::removeEvent(std::string eName) //removes the event from the day
+{
+  Event* current = startOfDay;
+  Event* previous = startOfDay;
+  while (current != nullptr)
+  {
+    if (current->getTitle() != eName)
+    {
+      previous = current;
+      current = current->getNextEvent();
+    }
+  }
+  if (current == startOfDay)
+  {
+    if (current->getNextEvent()->getIsFree())
+    {
+      startOfDay = current->getNextEvent();
+      delete current;
+      startOfDay->setStartTime(12, 0);
+    }
+    else
+    {
+      current->setTitle("blank");
+      current->setIsFree(true);
+      current->setDescription("blank");
+      current->setLocation("blank");
+      current->setEventType(0);
+    }
+
+  }
+  else if (current->getNextEvent() == nullptr)
+  {
+    if (previous->getIsFree())
+    {
+      previous->setEndTime(23, 59);
+      previous->setNextEvent(nullptr);
+      delete current;
+    }
+    else
+    {
+        current->setIsFree(true);
+        current->setTitle("blank");
+        current->setDescription("blank");
+        current->setLocation("blank");
+        current->setEventType(0);
+    }
+  }
+  else
+  {
+    if (previous->getIsFree() && current->getNextEvent()->getIsFree())
+    {
+      previous->setEndTime(current->getNextEvent()->getEndHour(), current->getNextEvent()->getEndMinute());
+      previous->setNextEvent(current->getNextEvent()->getNextEvent());
+      delete current->getNextEvent();
+      delete current;
+    }
+    else if (previous->getIsFree())
+    {
+      previous->setEndTime(current->getEndHour(), current->getEndMinute());
+      previous->setNextEvent(current->getNextEvent());
+      delete current;
+    }
+    else if (current->getNextEvent()->getIsFree())
+    {
+      current->getNextEvent()->setStartTime(current->getStartHour(), current->getStartMinute());
+      previous->setNextEvent(current->getNextEvent());
+      delete current;
+    }
+    else
+    {
+      current->setIsFree(true);
+      current->setTitle("blank");
+      current->setDescription("blank");
+      current->setLocation("blank");
+      current->setEventType(0);
+    }
+  }
 }
 
 Year::Year(int y) { //creates a year with the given number and creates the array of days in that year with their dates
@@ -520,7 +621,7 @@ void Calendar::addRepeatingEvent(){
 
 
     // Check that there are no conflicts on any date at that time
-    
+
 
     // Get information from user
     std::cout << "What is the name of this event?\n";

@@ -62,6 +62,8 @@ public:
     Day(int m, int d);
     void insertEvent(std::string t, std::string d, std::string l, int startHr, int startMin, int endHr, int endMin, int et, bool f);
     bool checkConflicts(int start[2], int end[2]);
+    bool findEvent(std::string eName); //needs to be implemented
+    void removeEvent(std::string eName); //needs to be implemented
 
 };
 
@@ -91,4 +93,5 @@ public:
     std::vector<Year> getYears();
     bool addYear(int y);
     int dateToIndex(int date[2]);
+    void deleteEvent(); //needs to be implemented
 };
