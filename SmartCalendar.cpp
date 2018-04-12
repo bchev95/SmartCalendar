@@ -456,7 +456,7 @@ Year Calendar::findYear(int y){
             return years[i];
         }
     }
-    return null;
+    return nullptr;
 }
 
 void Calendar::addEvent(){
@@ -467,7 +467,7 @@ void Calendar::addEvent(){
 
     // Check that the year has been created
     Year theYear = findYear(yearNum);
-    if(theYear == null)
+    if(theYear == nullptr)
     {
         addYear(yearNum);
     }
