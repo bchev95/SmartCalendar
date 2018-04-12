@@ -523,7 +523,7 @@ void Calendar::addEvent(){
     int eventType;
     std::cin >> eventType;
 
-    theDay->insertEvent(eventName, eventDescription, theStartHour, theStartMinute, theEndHour, theEndMinute, eventType, false);
+    theDay->insertEvent(eventName, eventDescription, eventLocation, theStartHour, theStartMinute, theEndHour, theEndMinute, eventType, false);
 }
 
 void Calendar::addRepeatingEvent(){
