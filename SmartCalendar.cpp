@@ -596,7 +596,7 @@ void Calendar::addRepeatingEvent(){
         std::cin >> eventDays[i];
 
         // Check to make sure there is at least one day of the week that the event occurs on
-        if(eventDays[1] == 0){
+        if(eventDays[0] == 0){
             std::cout << "Invalid entry\n";
             return;
         }
@@ -618,6 +618,37 @@ void Calendar::addRepeatingEvent(){
 
 
     // Check that there are no conflicts on any date at that time
+    Year theYear = years[yearIndex];
+    int startDate[2] = {theStartMonth, theStartDay};
+    int startDateIndex = dateToIndex(startDate);
+    int endDate[2] = {theEndMonth, theEndDay};
+    int endDateIndex = dateToIndex(endDate);
+    int startTime[2] = {theStartHour, theStartMinute};
+    int endTime[2] = {theEndHour, theEndMinute};
+
+    for(int i = startDateIndex; i <= endDateIndex; i+=7)
+    {
+      if(theYear.getADay(i)->checkConflicts(startTime, endTime))
+      {
+        std::cout << "There is a conflict with this event\n";
+        return;
+      }
+    }
+    for(int i = 1; i < 7; i++)
+    {
+      if(eventDays[i] != 0)
+      {
+        int diff = eventDays[i] - eventDays[1];
+        for(int i = startDateIndex + diff; i <= endDateIndex; i+=7)
+        {
+          if(theYear.getADay(i)->checkConflicts(startTime, endTime))
+          {
+            std::cout << "There is a conflict with this event\n";
+            return;
+          }
+        }
+      }
+    }
 
 
     // Get information from user
@@ -635,7 +666,21 @@ void Calendar::addRepeatingEvent(){
     std::cin >> eventType;
 
     // Insert the event into the applicable days
-
+    for(int i = startDateIndex; i <= endDateIndex; i+=7)
+    {
+      theYear.getADay(i)->insertEvent(eventName, eventDescription, eventLocation, theStartHour, theStartMinute, theEndHour, theEndMinute, eventType, false);
+    }
+    for(int j = 1; j < 7; j++)
+    {
+      if(eventDays[j] != 0)
+      {
+        int diff = eventDays[j] - eventDays[1];
+        for(int i = startDateIndex + diff; i <= endDateIndex; i+=7)
+        {
+          theYear.getADay(i)->insertEvent(eventName, eventDescription, eventLocation, theStartHour, theStartMinute, theEndHour, theEndMinute, eventType, false);
+        }
+      }
+    }
 }
 
 std::vector<Year> Calendar::getYears(){
@@ -748,7 +793,7 @@ void Calendar::deleteEvent()
   }
 }
 
-//this needs to be changed
+/*********************the following needs to be changed****************/
 void printCalendar(Event event[], int x)
 {
     for (int i = 0; i < x; i++)
