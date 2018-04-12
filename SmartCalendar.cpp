@@ -473,7 +473,10 @@ void Calendar::addEvent(){
     int yearIndex = findYear(yearNum);
     if(yearIndex == -1)
     {
-        addYear(yearNum);
+        if(!(addYear(yearNum))){
+            std::cout << "Invalid year\n";
+            return;
+        }
     }
 
     // Get date and time from user
@@ -539,8 +542,13 @@ std::vector<Year> Calendar::getYears(){
     return years;
 }
 
-void Calendar::addYear(int y) { // adds a new year to the calendar
-    years.push_back(Year(y));
+bool Calendar::addYear(int y) { // adds a new year to the calendar & returns false if the year does not follow the succession
+    if((years.bacl() + 1) == y) {
+        years.push_back(Year(y));
+        return true;
+    }
+    else
+        return false;
 }
 
 int Calendar::dateToIndex(int date[2]){ //takes the date of a day and converts it to the index
