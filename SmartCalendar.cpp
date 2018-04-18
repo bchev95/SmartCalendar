@@ -523,7 +523,10 @@ void Year::printYear()
 }
 
 /****************************************************** Calendar Class ************************************************/
-Calendar::Calendar() = default;
+Calendar::Calendar()
+{
+    years = nullptr;
+}
 
 int Calendar::findYear(int y){
     int j = years.size();
@@ -737,7 +740,12 @@ std::vector<Year> Calendar::getYears(){
 }
 
 bool Calendar::addYear(int y) { // adds a new year to the calendar & returns false if the year does not follow the succession
-    if(((years.back().getYear()) + 1) == y) {
+    if (years.back == nullptr)
+    {
+        years.push_back(Year(y));
+        return true;
+    }
+    else if(((years.back().getYear()) + 1) == y) {
         years.push_back(Year(y));
         return true;
     }
@@ -799,47 +807,47 @@ int Calendar::dateToIndex(int date[2]){ //takes the date of a day and converts i
 
 void Calendar::deleteEvent()
 {
-  // Get year from user
-  std::cout << "What year will your event occur in?\n";
-  int yearNum;
-  std::cin >> yearNum;
+    // Get year from user
+    std::cout << "What year will your event occur in?\n";
+    int yearNum;
+    std::cin >> yearNum;
 
-  // Check that the year has been created
-  int yearIndex = findYear(yearNum);
-  if(yearIndex == -1)
-  {
+    // Check that the year has been created
+    int yearIndex = findYear(yearNum);
+    if(yearIndex == -1)
+    {
         std::cout << "Invalid year\n";
         return;
 
-  }
+    }
 
-  // Get date and time from user
-  std::cout << "What month (number) " << yearNum << " does your event occur in?\n";
-  int theMonth;
-  std::cin >> theMonth;
-  std::cout << "What day of the month does your event occur on?\n";
-  int theDayNum;
-  std::cin >> theDayNum;
+    // Get date and time from user
+    std::cout << "What month (number) " << yearNum << " does your event occur in?\n";
+    int theMonth;
+    std::cin >> theMonth;
+    std::cout << "What day of the month does your event occur on?\n";
+    int theDayNum;
+    std::cin >> theDayNum;
 
-  // Get index & object of date
-  int date[2] = {theMonth, theDayNum};
-  int dateIndex = dateToIndex(date);
-  Year theYear = years[yearIndex];
-  Day * theDay = theYear.getADay(dateIndex);
+    // Get index & object of date
+    int date[2] = {theMonth, theDayNum};
+    int dateIndex = dateToIndex(date);
+    Year theYear = years[yearIndex];
+    Day * theDay = theYear.getADay(dateIndex);
 
-  // Deleting the event
-  std::cout << "What is the name of the event that you will be deleting?\n";
-  std::string eventName;
-  std::cin >> eventName;
-  if(theDay->findEvent(eventName))
-  {
-    theDay->removeEvent(eventName);
-  }
-  else
-  {
-    std::cout << "Invalid event\n";
-    return;
-  }
+    // Deleting the event
+    std::cout << "What is the name of the event that you will be deleting?\n";
+    std::string eventName;
+    std::cin >> eventName;
+    if(theDay->findEvent(eventName))
+    {
+        theDay->removeEvent(eventName);
+    }
+    else
+    {
+        std::cout << "Invalid event\n";
+        return;
+    }
 }
 
 void Calendar::printCalendar()
@@ -860,7 +868,7 @@ void Calendar::printCalendar()
     }
 }*/
 
-/****************************************************** Main Class ****************************************************/
+/****************************************************** Printing Class ************************************************/
 int printClass::printMenu()
 {
     int response;
@@ -873,52 +881,52 @@ int printClass::printMenu()
     return response;
 }
 
-    int main()
-    {
-        // Creating the new calendar
-        int firstYear;
-        std::cout << "What year is it?\n";
-        std::cin >> firstYear;
-        Calendar * cal = new Calendar();
-        cal->addYear(firstYear);
+int main()
+{
+    // Creating the new calendar
+    int firstYear;
+    std::cout << "What year is it?\n";
+    std::cin >> firstYear;
+    Calendar * cal = new Calendar();
+    cal->addYear(firstYear);
 
-        // Repeats options for the user until they exit
-        printClass * menu = new printClass();
-        int menuOption = menu->printMenu();
-        while(menuOption != -1)
+    // Repeats options for the user until they exit
+    printClass * menu = new printClass();
+    int menuOption = menu->printMenu();
+    while(menuOption != -1)
+    {
+        // Add a regular event
+        if(menuOption == 1)
         {
-            // Add a regular event
-            if(menuOption == 1)
-            {
-                cal->addEvent();
-            }
-            // Add a repeating event
-            else if(menuOption == 2)
-            {
-                cal->addRepeatingEvent();
-            }
-            // Remove an event
-            else if(menuOption == 3)
-            {
-                cal->deleteEvent();
-            }
-            // Print out the calendar
-            else if(menuOption == 4)
-            {
-                cal->printCalendar();
-            }
-            // Exit the program
-            else if(menuOption == 5)
-            {
-                return 5;
-            }
-            else
-                std::cout << "Not a valid menu option\n";
-            /*
-             *  Need to add some sort of file output
-             *  here to be used for the GUI
-             */
-             menuOption = menu->printMenu();
+            cal->addEvent();
         }
-        return 0;
+        // Add a repeating event
+        else if(menuOption == 2)
+        {
+            cal->addRepeatingEvent();
+        }
+        // Remove an event
+        else if(menuOption == 3)
+        {
+            cal->deleteEvent();
+        }
+        // Print out the calendar
+        else if(menuOption == 4)
+        {
+            cal->printCalendar();
+        }
+        // Exit the program
+        else if(menuOption == 5)
+        {
+            return 5;
+        }
+        else
+            std::cout << "Not a valid menu option\n";
+        /*
+         *  Need to add some sort of file output
+         *  here to be used for the GUI
+         */
+         menuOption = menu->printMenu();
     }
+    return 0;
+}
