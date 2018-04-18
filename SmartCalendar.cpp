@@ -524,9 +524,7 @@ void Year::printYear()
 
 /****************************************************** Calendar Class ************************************************/
 Calendar::Calendar()
-{
-    years = nullptr;
-}
+{}
 
 int Calendar::findYear(int y){
     int j = years.size();
@@ -740,7 +738,7 @@ std::vector<Year> Calendar::getYears(){
 }
 
 bool Calendar::addYear(int y) { // adds a new year to the calendar & returns false if the year does not follow the succession
-    if (years.back == nullptr)
+    if (years.back() == nullptr)
     {
         years.push_back(Year(y));
         return true;
