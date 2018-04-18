@@ -98,3 +98,9 @@ public:
     void printEvent();          // Method to print a specific event -> needs to be implemented
     void printCalendar();
 };
+
+class printClass
+{
+public:
+    int printMenu();
+};

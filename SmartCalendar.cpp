@@ -317,7 +317,6 @@ void Day::insertEvent(std::string t, std::string d, std::string l, int startHr, 
 
 }
 
-
 bool Day::findEvent(std::string eName){ //checks to see if an event with the given name exists, returns true if it does exist
   Event* current = startOfDay;
   while (current != nullptr){
@@ -418,7 +417,7 @@ void Day::printDay()
     Event * current = startOfDay;
     while (current != nullptr)
     {
-        current = current->getNextEvent()->printEvent();
+        current->printEvent();
         current = current->getNextEvent();
     }
     std::cout << "--------------------\n";
@@ -862,51 +861,51 @@ void Calendar::printCalendar()
 }*/
 
 /****************************************************** Main Class ****************************************************/
-class mainClass{
-    int printMenu()
-    {
-        int response;
-        std::cout << "1. Add an event.\n";
-        std::cout << "2. Add a repeating event.\n";
-        std::cout << "3. Remove an event.\n";
-        std::cout << "4. Print out calendar.\n";
-        std::cout << "5. Exit.\n";
-        std::cin >> response;
-        return response;
-    }
+int printClass::printMenu()
+{
+    int response;
+    std::cout << "1. Add an event.\n";
+    std::cout << "2. Add a repeating event.\n";
+    std::cout << "3. Remove an event.\n";
+    std::cout << "4. Print out calendar.\n";
+    std::cout << "5. Exit.\n";
+    std::cin >> response;
+    return response;
+}
 
     int main()
     {
         // Creating the new calendar
         int firstYear;
-        std::cout << "What year is it?";
+        std::cout << "What year is it?\n";
         std::cin >> firstYear;
-        Calendar cal = new Calendar();
-        cal.addYear(firstYear);
+        Calendar * cal = new Calendar();
+        cal->addYear(firstYear);
 
         // Repeats options for the user until they exit
-        int menuOption = mainClass.printMenu();
+        printClass * menu = new printClass();
+        int menuOption = menu->printMenu();
         while(menuOption != -1)
         {
             // Add a regular event
             if(menuOption == 1)
             {
-                cal.addEvent();
+                cal->addEvent();
             }
             // Add a repeating event
             else if(menuOption == 2)
             {
-                cal.addRepeatingEvent();
+                cal->addRepeatingEvent();
             }
             // Remove an event
             else if(menuOption == 3)
             {
-                cal.deleteEvent();
+                cal->deleteEvent();
             }
             // Print out the calendar
             else if(menuOption == 4)
             {
-                cal.printCalendar();
+                cal->printCalendar();
             }
             // Exit the program
             else if(menuOption == 5)
@@ -919,7 +918,7 @@ class mainClass{
              *  Need to add some sort of file output
              *  here to be used for the GUI
              */
+             menuOption = menu->printMenu();
         }
         return 0;
     }
-};
