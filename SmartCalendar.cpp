@@ -626,15 +626,35 @@ void Calendar::addRepeatingEvent(){
     std::cout << "What month (number) " << yearNum << " will your event start occurring?\n";
     int theStartMonth;
     std::cin >> theStartMonth;
+    while (theStartMonth >= 13 || theStartMonth < 0)
+    {
+      std::cout << "Incorrect input... try again" << endl;
+      std::cin >> theStartMonth;
+    }
     std::cout << "What day of the month will your event start occurring?\n";
     int theStartDay;
     std::cin >> theStartDay;
+    while (theStartDay >= 32 || theStartDay < 0)
+    {
+      std::cout << "Incorrect input... try again" << endl;
+      std::cin >> theStartDay;
+    }
     std::cout << "What month (number) " << yearNum << " will your event stop occurring?\n";
     int theEndMonth;
     std::cin >> theEndMonth;
+    while (theEndMonth >= 13 || theEndMonth < 0)
+    {
+      std::cout << "Incorrect input... try again" << endl;
+      std::cin >> theEndMonth;
+    }
     std::cout << "What day of the month will your event stop occurring?\n";
     int theEndDay;
     std::cin >> theEndDay;
+    while (theEndDay >= 32 || theEndDay < 0)
+    {
+      std::cout << "Incorrect input... try again" << endl;
+      std::cin >> theEndDay;
+    }
 
     // Get the days of the week that the event will occur on
     int eventDays[7] = {};
@@ -656,16 +676,38 @@ void Calendar::addRepeatingEvent(){
     std::cout << "What hour (military time) will your event start at?\n";
     int theStartHour;
     std::cin >> theStartHour;
-    std::cout << "What minute of the " << theStartHour << " hour will your event start?\n";
+    while (theStartHour <= 0 || theStartHour >= 24)
+    {
+        std::cout << "Incorrect input... try again" << endl;
+        std::cin >> theStartHour;
+    }
+
+    std::cout << "What minute will your event start?\n";
     int theStartMinute;
     std::cin >> theStartMinute;
+    while (theStartMinute <= 0 || theStartMinute >= 60)
+    {
+        std::cout << "Incorrect input... try again" << endl;
+        std::cin >> theStartMinute;
+    }
+
     std::cout << "What hour (military time) will your event end at?\n";
     int theEndHour;
     std::cin >> theEndHour;
+    while (theEndHour <= 0 || theEndHour >= 24)
+    {
+        std::cout << "Incorrect input... try again" << endl;
+        std::cin >> theEndHour;
+    }
+
     std::cout << "What minute of the " << theEndHour << " hour will your event start?\n";
     int theEndMinute;
     std::cin >> theEndMinute;
-
+    while (theEndMinute <= 0 || theEndMinute >= 60)
+    {
+        std::cout << "Incorrect input... try again" << endl;
+        std::cin >> theEndMinute;
+    }
 
     // Check that there are no conflicts on any date at that time
     Year theYear = years[yearIndex];
@@ -711,7 +753,7 @@ void Calendar::addRepeatingEvent(){
     std::cout << "What is the description of " << eventName << "?\n";
     std::string eventDescription;
     std::cin >> eventDescription;
-    std::cout << "What is the event type of " << eventName << "?\n";
+    std::cout << "What is the urgence (1 being lowest, 3 being highest) of " << eventName << "?\n";
     int eventType;
     std::cin >> eventType;
 
