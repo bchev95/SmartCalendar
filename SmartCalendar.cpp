@@ -2,7 +2,7 @@
 #include <string>
 #include "SmartCalendar.h"
 
-
+/****************************************************** Event Class ***************************************************/
 Event::Event()
 {
     title = "blank";
@@ -130,27 +130,6 @@ void Event::setEventType(int e)
     eventType = e;
 }
 
-void Event::printEvent()
-{
-    if (startTime[0] < 10)
-    {
-        std::cout << "0" << startTime[0];
-    }
-    else
-    {
-        std::cout << startTime[0];
-    }
-    if (startTime[1] < 10)
-    {
-        std::cout << ":0" << startTime[1];
-    }
-    else
-    {
-        std::cout << ":" << startTime[1];
-    }
-    std::cout << "\t" << title << std::endl;
-}
-
 bool Event::getIsFree() {
     return isFree;
 }
@@ -167,6 +146,55 @@ Event * Event::getNextEvent(){
     return nextEvent;
 }
 
+void Event::printEvent()
+{
+    std::cout << "Event name: " << title << "\n";
+    std::cout << "Date: " << date[0] << "/" << date[1] << "/" << date[2] << "\n";
+    std::cout << "Start time: ";
+    if (startTime[0] < 10)
+    {
+        std::cout << "0" << startTime[0];
+    }
+    else
+    {
+        std::cout << startTime[0];
+    }
+    if (startTime[1] < 10)
+    {
+        std::cout << ":0" << startTime[1];
+    }
+    else
+    {
+        std::cout << ":" << startTime[1];
+    }
+    std::cout << "\nEnd time: ";
+    if (startTime[0] < 10)
+    {
+        std::cout << "0" << endTime[0];
+    }
+    else
+    {
+        std::cout << endTime[0];
+    }
+    if (startTime[1] < 10)
+    {
+        std::cout << ":0" << endTime[1];
+    }
+    else
+    {
+        std::cout << ":" << endTime[1];
+    }
+    std::cout << "\nEvent type: " << eventType << "\n";
+    std::cout << "Location: " << location << "\n";
+    std::cout << "Description: " << description << "\n";
+    std::cout << "Is free time?";
+    if(isFree)
+        std::cout << "Yes\n\n";
+    else
+        std::cout << "No\n\n";
+}
+
+/****************************************************** Day Class *****************************************************/
 Day::Day() = default;
 
 Day::Day(int m, int d) {
@@ -385,6 +413,18 @@ void Day::removeEvent(std::string eName) //removes the event from the day
   }
 }
 
+void Day::printDay()
+{
+    Event * current = startOfDay;
+    while (current != nullptr)
+    {
+        current = current->getNextEvent()->printEvent();
+        current = current->getNextEvent();
+    }
+    std::cout << "--------------------\n";
+}
+
+/****************************************************** Year Class ****************************************************/
 Year::Year(int y) { //creates a year with the given number and creates the array of days in that year with their dates
     year = y;
     for (unsigned int i = 0; i < 365; i++)
@@ -474,6 +514,16 @@ int* Year::indexToDate(int i){ //takes the index of the day and converts it to t
 
 }
 
+void Year::printYear()
+{
+    std::cout << "***** Year " << year << " *****\n";
+    for (unsigned int i = 0; i < 365; i++)
+    {
+        days[i]->printDay();
+    }
+}
+
+/****************************************************** Calendar Class ************************************************/
 Calendar::Calendar() = default;
 
 int Calendar::findYear(int y){
@@ -793,14 +843,25 @@ void Calendar::deleteEvent()
   }
 }
 
+void Calendar::printCalendar()
+{
+    int j = years.size();
+    for(int i = 0; i < j; i++)
+    {
+        years[i].printYear();
+    }
+}
+
 /******************************************the following needs to be changed******************************************/
-void printCalendar(Event event[], int x)
+/*void printCalendar(Event event[], int x)
 {
     for (int i = 0; i < x; i++)
     {
         event[i].printEvent();
     }
-}
+}*/
+
+/****************************************************** Main Class ****************************************************/
 class mainClass{
     int printMenu()
     {
@@ -845,9 +906,7 @@ class mainClass{
             // Print out the calendar
             else if(menuOption == 4)
             {
-                /*
-                 *  Need to create a method to print out the calendar
-                 */
+                cal.printCalendar();
             }
             // Exit the program
             else if(menuOption == 5)

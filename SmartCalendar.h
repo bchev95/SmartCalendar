@@ -44,27 +44,27 @@ public:
     void setDate(int d[3]);
     int getEventType();
     void setEventType(int e);
-    void printEvent();
     bool getIsFree();
     void setIsFree(bool f);
     void setNextEvent(Event * e);
     Event * getNextEvent();
+    void printEvent();
 };
 
 class Day
 {
 private:
-    Event * startOfDay;      // Head of linked list
-    int dayOfWeek;
+    Event * startOfDay;     // Head of linked list
+    int dayOfWeek;          // Sunday == 1
     int date[2];
 public:
     Day();
     Day(int m, int d);
     void insertEvent(std::string t, std::string d, std::string l, int startHr, int startMin, int endHr, int endMin, int et, bool f);
     bool checkConflicts(int start[2], int end[2]);
-    bool findEvent(std::string eName); //needs to be implemented
-    void removeEvent(std::string eName); //needs to be implemented
-
+    bool findEvent(std::string eName);
+    void removeEvent(std::string eName);
+    void printDay();
 };
 
 
@@ -77,8 +77,9 @@ public:
     Year(int y);
     Day* getDays();
     Day * getADay(int index);
-    int* indexToDate(int i); //takes the index of the day and converts it to the actual date
+    int* indexToDate(int i);    // Takes the index of the day and converts it to the actual date
     int getYear();
+    void printYear();
 };
 
 class Calendar
@@ -93,5 +94,7 @@ public:
     std::vector<Year> getYears();
     bool addYear(int y);
     int dateToIndex(int date[2]);
-    void deleteEvent(); //needs to be implemented
+    void deleteEvent();
+    void printEvent();          // Method to print a specific event -> needs to be implemented
+    void printCalendar();
 };
