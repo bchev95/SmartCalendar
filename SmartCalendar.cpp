@@ -801,19 +801,66 @@ void printCalendar(Event event[], int x)
         event[i].printEvent();
     }
 }
+class mainClass{
+    int printMenu()
+    {
+        int response;
+        std::cout << "1. Add an event.\n";
+        std::cout << "2. Add a repeating event.\n";
+        std::cout << "3. Remove an event.\n";
+        std::cout << "4. Print out calendar.\n";
+        std::cout << "5. Exit.\n";
+        std::cin >> response;
+        return response;
+    }
 
-std::string printMenu()
-{
-    std::string response;
-    cout << "1. Add an event." << endl;
-    cout << "2. Print out calendar." << endl;
-    cout << "3. Leave me alone." << endl;
-    cin >> response;
-    return response;
-}
+    int main()
+    {
+        // Creating the new calendar
+        int firstYear;
+        std::cout << "What year is it?";
+        std::cin >> firstYear;
+        Calendar cal = new Calendar();
+        cal.addYear(firstYear);
 
-int main()
-{
-    // When starting the cale
-    return 0;
-}
+        // Repeats options for the user until they exit
+        int menuOption = mainClass.printMenu();
+        while(menuOption != -1)
+        {
+            // Add a regular event
+            if(menuOption == 1)
+            {
+                cal.addEvent();
+            }
+            // Add a repeating event
+            else if(menuOption == 2)
+            {
+                cal.addRepeatingEvent();
+            }
+            // Remove an event
+            else if(menuOption == 3)
+            {
+                cal.deleteEvent();
+            }
+            // Print out the calendar
+            else if(menuOption == 4)
+            {
+                /*
+                 *  Need to create a method to print out the calendar
+                 */
+            }
+            // Exit the program
+            else if(menuOption == 5)
+            {
+                return 5;
+            }
+            else
+                std::cout << "Not a valid menu option\n";
+            /*
+             *  Need to add some sort of file output
+             *  here to be used for the GUI
+             */
+        }
+        return 0;
+    }
+};
