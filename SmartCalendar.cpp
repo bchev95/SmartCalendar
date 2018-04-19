@@ -442,62 +442,62 @@ int Year::getYear() {
 }
 
 int* Year::indexToDate(int i){ //takes the index of the day and converts it to the actual date
-    int date[2] = {0, 0};
+    int *tempDate = new int[2]; tempDate[0] = 0; tempDate[1] = 0;
     int month = 1;
     int day = 1;
     for (int j = 0; j < i; j++)
     {
-        if (j == 31){
+        if (j == 30){
             month++;
             day = 1;
         }
-        else if (j == 59)
+        else if (j == 58)
         {
             month++;
             day = 1;
         }
-        else if (j == 90)
+        else if (j == 89)
         {
             month++;
             day = 1;
         }
-        else if (j == 120)
+        else if (j == 119)
         {
             month++;
             day = 1;
 
         }
-        else if (j == 151)
+        else if (j == 150)
         {
             month++;
             day = 1;
         }
-        else if (j == 181)
+        else if (j == 180)
         {
             month++;
             day = 1;
         }
-        else if (j == 212)
+        else if (j == 211)
         {
             month++;
             day = 1;
         }
-        else if (j == 243)
+        else if (j == 242)
         {
             month++;
             day = 1;
         }
-        else if (j == 273)
+        else if (j == 272)
         {
             month++;
             day = 1;
         }
-        else if (j == 304)
+        else if (j == 303)
         {
             month++;
             day = 1;
         }
-        else if (j == 334)
+        else if (j == 333)
         {
             month++;
             day = 1;
@@ -507,9 +507,9 @@ int* Year::indexToDate(int i){ //takes the index of the day and converts it to t
             day++;
         }
     }
-    date[0] = month;
-    date[1] = day;
-    return date;
+    tempDate[0] = month;
+    tempDate[1] = day;
+    return tempDate;
 
 }
 
